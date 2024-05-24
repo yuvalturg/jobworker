@@ -1,0 +1,39 @@
+syntax = "proto3";
+option go_package = "jobworker/pkg/api";
+
+package jobworker;
+
+service JobWorker {
+    rpc StartJob (StartJobRequest) returns (JobResponse);
+    rpc StopJob (JobRequest) returns (JobResponse);
+    rpc QueryJob (JobRequest) returns (JobResponse);
+    rpc StreamJob (JobRequest) returns (stream StreamJobResponse);
+}
+
+enum JobStatus {
+    jobInit = 0;
+	jobScheduled = 1;
+	jobFailedToStart = 2;
+	jobRunning = 3;
+	jobStopped = 4;
+}
+
+message StartJobRequest {
+    string command = 1;
+    repeated string arguments = 2;
+}
+
+message JobRequest {
+    string job_id = 1;
+}
+
+message JobResponse {
+    string job_id = 1;
+    int32 pid = 2;
+    int32 exit_code = 3;
+    JobStatus status = 4;
+}
+
+message StreamJobResponse {
+    bytes message = 1;
+}
