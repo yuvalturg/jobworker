@@ -5,11 +5,6 @@ state: draft
 
 # Job Worker Service
 
-
-## Required Approvers
-
-* Engineering: @rosstimothy @codingllama @GavinFrazar @hugoShaka
-
 ## What
 
 Implement a job worker service that is capable to execute isolated and resource-limited Linux processes on the server side. The service will expose an API for starting, stopping, querying status, and streaming output for each process.
